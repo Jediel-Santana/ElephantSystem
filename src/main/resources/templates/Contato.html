@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+<link rel="stylesheet" type="text/css">
+<meta charset="UTF-8">
+
+
+</head>
+
+
+<body class="animsition">
+
+	<main layout:fragment="conteudo" style="background-color: #42a7f5;">
+
+		<!-- Title Page -->
+		<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m"
+			style="background-image: url(/layout/images/banner-contato-opcao.jpg);">
+			<h2 class="l-text2 t-center">Contato</h2>
+		</section>
+
+		<!-- content page -->
+		<section class="bgwhite p-t-66 p-b-60">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 p-b-30">
+						<div class="p-r-20 p-r-0-lg">
+							<div class="contact-map size21" id="google_map"
+								data-map-x="-8.005469" data-map-y="-34.8747736"
+								data-pin="/layout/images/icons/icon-position-map-es.png"
+								data-scrollwhell="0" data-draggable="1"></div>
+						</div>
+					</div>
+
+					<div class="col-md-6 p-b-30">
+						<form class="leave-comment">
+							<h4 class="m-text26 p-b-36 p-t-15">Envie sua mensagem</h4>
+
+							<div class="bo4 of-hidden size15 m-b-20">
+								<input class="sizefull s-text7 p-l-22 p-r-22" type="text"
+									name="name" placeholder="Nome completo">
+							</div>
+
+							<div class="bo4 of-hidden size15 m-b-20">
+								<input class="sizefull s-text7 p-l-22 p-r-22" type="text"
+									name="phone-number" placeholder="Número telefone">
+							</div>
+
+							<div class="bo4 of-hidden size15 m-b-20">
+								<input class="sizefull s-text7 p-l-22 p-r-22" type="text"
+									name="email" placeholder="Endereço de email">
+							</div>
+
+							<textarea
+								class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20"
+								name="message" placeholder="Mensagem"></textarea>
+
+							<div class="w-size25">
+								<!-- Button -->
+								<button
+									class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4">
+									Enviar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<th:block layout:fragment="javascript-extras">
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBunueKza9DTVm0iWHcQA6OXo955iq3q_E"></script>
+		<script th:src="@{/javascripts/vendors/map-custom.min.js}"></script>F
+	</th:block>
+
+</body>
+
+
+
+</html>

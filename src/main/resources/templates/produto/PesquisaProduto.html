@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="layout/LayoutPadrao"
+	>
+
+<head>
+
+<link rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/vendors/daterangepicker/daterangepicker.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/vendors/noui/nouislider.min.css}">
+
+</head>
+
+
+<body class="animsition">
+
+	<main layout:fragment="conteudo">
+
+		<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m"
+			style="background-image: url(/layout/images/produtos.jpg);">
+			<h2 class="l-text2 t-center">Produtos</h2>
+			<p class="m-text13 t-center">Coleções 2022</p>
+		</section>
+
+		<section th:replace="produto/ItemPesquisa :: pesquisa"></section>
+
+	</main>
+
+
+	<th:block layout:fragment="javascript-extras">
+		<th:block th:replace="produto/ItemPesquisa :: js-item-pesquisa"></th:block>
+
+	</th:block>
+</body>
+
+
+
+</html>

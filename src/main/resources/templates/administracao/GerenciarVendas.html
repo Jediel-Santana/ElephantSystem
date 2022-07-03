@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:es="http://www.elephantsystem.edu"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+
+<link rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/stylesheets/vendors/bootstrap-select.min.css}">
+</head>
+
+
+<body class="animsition es-backgroud-gradient-red-white">
+
+	<main layout:fragment="conteudo" class="main-mg-top">
+
+
+
+
+		<div class="page-header text-center pb-2 mt-4 mb-2 border-bottom">
+			<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m"
+				style="background-image: url(/layout/images/banner-cart.png);">
+				<h2 class="l-text2 t-center" style="color: black;">Gerenciar
+					vendas</h2>
+			</section>
+		</div>
+
+		<div class="container">
+			<div class="card">
+				<div class="card-content">
+					<div class="row row-group m-0">
+						<div class="col-12 col-lg-6 col-xl-3 border-light">
+							<div class="card-body">
+								<h5 class="text-white mb-0">
+									Total de vendas aprovadas<span class="float-right"><i class="fa fa-shopping-cart"></i></span>
+								</h5>
+								<div class="progress my-3" style="height: 3px;">
+									<div class="progress-bar" style="width: 58%"></div>
+								</div>
+								<p class="mb-0 text-white small-font">
+									<span class="float-right">58% <i
+										class="zmdi zmdi-long-arrow-up"></i></span>
+								</p>
+							</div>
+						</div>
+						<div class="col-12 col-lg-6 col-xl-3 border-light">
+							<div class="card-body">
+								<h5 class="text-white mb-0">
+									Total de vendas análise<span class="float-right"><i class="fa fa-shopping-cart"></i></span>
+								</h5>
+								<div class="progress my-3" style="height: 3px;">
+									<div class="progress-bar" style="width: 10%"></div>
+								</div>
+								<p class="mb-0 text-white small-font">
+									<span class="float-right">10% <i
+										class="zmdi zmdi-long-arrow-up"></i></span>
+								</p>
+							</div>
+						</div>
+						<div class="col-12 col-lg-6 col-xl-3 border-light">
+							<div class="card-body">
+								<h5 class="text-white mb-0">
+									Total de vendas entregue<span class="float-right"><i class="fa fa-shopping-cart"></i></span>
+								</h5>
+								<div class="progress my-3" style="height: 3px;">
+									<div class="progress-bar" style="width: 30%"></div>
+								</div>
+								<p class="mb-0 text-white small-font">
+									<span class="float-right">30% <i
+										class="zmdi zmdi-long-arrow-up"></i></span>
+								</p>
+							</div>
+						</div>
+						<div class="col-12 col-lg-6 col-xl-3 border-light">
+							<div class="card-body">
+								<h5 class="text-white mb-0">
+									Total de vendas canceladas<span class="float-right"><i class="fa fa-shopping-cart"></i></span>
+								</h5>
+								<div class="progress my-3" style="height: 3px;">
+									<div class="progress-bar" style="width: 2%"></div>
+								</div>
+								<p class="mb-0 text-white small-font">
+									<span class="float-right">2% <i
+										class="zmdi zmdi-long-arrow-up"></i></span>
+								</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			
+		</div>
+
+
+		<th:block th:replace="hbs/TabelaVendas :: tabela-vendas"></th:block>
+	</main>
+
+	<th:block layout:fragment="javascript-extras">
+		<script th:src="@{/javascripts/vendors/bootstrap-select.min.js}"></script>
+
+	</th:block>
+
+</body>
+
+
+
+</html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+	version="2.1">
+
+
+	<named-native-query name="Vendas.totalPorMes"
+		result-set-mapping="totalPorMesMapping">
+		<query>
+			select date_format(data_criacao, '%Y/%m') mes
+				 , count(*) total
+  			from venda
+  			where data_criacao > DATE_SUB(NOW(), INTERVAL 6 MONTH)
+  			  and status in ('APROVADA', 'DESPACHADO', 'ENTREGUE')
+			group by date_format(data_criacao, '%Y/%m')   
+			order by date_format(data_criacao, '%Y/%m') desc
+	    </query>
+	</named-native-query>
+
+
+	<named-native-query name="Vendas.totalPorCategoria"
+		result-set-mapping="totalPorCategoriaMapping">
+		<query>
+			SELECT p.categoria, SUM(iv.preco_unitario * ivt.quantidade) AS total FROM venda v 
+				INNER JOIN item_venda iv ON v.id = iv.id_venda
+				INNER JOIN produto p ON iv.id_produto = p.id 
+				INNER JOIN item_venda_tamanho ivt ON ivt.id_item_venda= iv.id
+				GROUP BY p.categoria
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="Produtos.totalVendido"
+		result-set-mapping="totalProdutosVendidosMapping">
+		<query>
+			SELECT p.descricao, SUM(ivt.quantidade) AS total FROM produto p
+			INNER JOIN item_venda iv ON p.id = iv.id_produto
+			INNER JOIN item_venda_tamanho ivt ON iv.id = ivt.id_item_venda
+			GROUP BY p.id
+			ORDER BY total DESC;
+		</query>
+	</named-native-query>
+	
+	<sql-result-set-mapping
+		name="totalPorMesMapping">
+		<constructor-result
+			target-class="edu.uniaeso.ElephantSystem.dto.VendaMes">
+			<column name="mes" class="java.lang.String" />
+			<column name="total" class="java.lang.Integer" />
+		</constructor-result>
+	</sql-result-set-mapping>
+
+	<sql-result-set-mapping
+		name="totalPorCategoriaMapping">
+		<constructor-result
+			target-class="edu.uniaeso.ElephantSystem.dto.VendaCategoria">
+			<column name="categoria" class="java.lang.String" />
+			<column name="total" class="java.math.BigDecimal" />
+		</constructor-result>
+	</sql-result-set-mapping>
+	
+	<sql-result-set-mapping
+		name="totalProdutosVendidosMapping">
+		<constructor-result
+			target-class="edu.uniaeso.ElephantSystem.dto.ProdutoMaisVendido">
+			<column name="descricao" class="java.lang.String" />
+			<column name="total" class="java.lang.Integer" />
+		</constructor-result>
+	</sql-result-set-mapping>
+
+
+</entity-mappings>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:es="http://www.ElephantSystem.edu"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<th:block th:fragment="tabela-vendas">
+	
+
+	<div class="container mt-3">
+	
+		<th:block th:replace="venda/FiltroVenda :: filtro-venda(${pagina})"></th:block>
+	
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Vendas</h5>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col" class="card-clean-padding">Nº</th>
+								<th scope="col" class="card-clean-padding col-status-venda">Status</th>
+								<th scope="col" class="card-clean-padding">Data</th>
+								<th scope="col" class="card-clean-padding"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="venda : ${pagina.conteudo}">
+								<tr>
+									<td class="card-clean-padding" th:text="${venda.id}">20</td>
+									<td class="card-clean-padding"
+										th:text="${venda.status.descricao}">Aprovado</td>
+									<td class="card-clean-padding" th:text="${#temporals.format(venda.dataCriacao, 'dd/MM/yyyy')}">22/10/2022</td>
+									<td class="card-clean-padding"><a href="#"
+										class="js-btn-modal-venda" data-toggle="modal"
+										data-target="#modalDetalheVenda" data:id-venda="${venda.id}"><i
+											class="fa-solid fa-eye"></i></a></td>
+								</tr>
+							</th:block>
+
+							<tr th:if="${pagina.vazia}">
+								<td colspan="4">Nenhuma venda encontrada</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		'
+		<es:pagination page="${pagina}">
+		
+	</div>
+
+	<div class="modal fade modal-xl container-modal-detalhe-venda"
+		id="modalDetalheVenda" tabindex="-1" role="dialog" th:fragment="modal"
+		style="background-color: rgb(108, 117, 127, 0.7);">
+		<!-- <th:block th:replace="perfil/DetalheVendaModal :: modal-content"></th:block> -->
+	</div>
+
+
+	<input type="hidden" id="url" th:value="@{/vendas}">
+	<script th:src="@{/javascripts/pedidos.modal-venda.js}"></script>
+</th:block>
+</html>

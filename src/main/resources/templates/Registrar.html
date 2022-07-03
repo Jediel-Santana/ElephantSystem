@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:es="http://www.ElephantSystem.edu"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<link th:href="@{/layout/vendors/pace/pace.min.css}" rel="stylesheet" />
+<script th:src="@{/layout/vendors/pace/pace.min.js}"></script>
+<!--favicon-->
+
+<!-- Bootstrap core CSS-->
+<link th:href="@{/layout/vendors/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<!-- animate CSS-->
+<link th:href="@{/layout/stylesheet/vendors/animate.css}"
+	rel="stylesheet" type="text/css" />
+<!-- Icons CSS-->
+<link th:href="@{/layout/stylesheet/vendors/icons.css}" rel="stylesheet"
+	type="text/css" />
+<!-- Custom Style-->
+<link th:href="@{/layout/stylesheet/app-style.css}" rel="stylesheet" />
+
+<style>
+.alert-dismissible .close {
+	position: relative !important;
+	top: -0.75rem !important;
+}
+</style>
+</head>
+
+
+<body class="animsition"
+	style="background: rgb(234, 84, 85); background: linear-gradient(90deg, rgba(234, 84, 85, 1) 41%, rgba(254, 182, 146, 1) 91%);">
+
+	<main layout:fragment="conteudo">
+		<section class="login">
+			<div id="wrapper">
+
+				<div class="loader-wrapper">
+					<div class="lds-ring">
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+
+				<div class="card card-authentication1 mx-auto my-4">
+					<div class="card-body">
+						<div class="card-content p-2">
+							<div class="text-center">
+								<img th:src="@{/layout/images/es-sem-fundo.png}" alt="logo icon" width="150px" style="border-radius: 40px;">
+							</div>
+							<div class="card-title text-uppercase text-center py-3">Cadastro
+								de Usuário</div>
+							<form th:object="${usuario}" method="POST"
+								th:action="@{/api/public/usuarios/novo}">
+								<es:message />
+
+								<div class="form-group">
+									<label for="exampleInputName">Nome</label>
+									<div class="position-relative has-icon-right">
+										<input type="text" id="exampleInputName"
+											class="form-control input-shadow"
+											placeholder="Augustinho Carrara" th:field="*{pessoa.nome}">
+										<div class="form-control-position">
+											<i class="icon-user"></i>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmailId">Email</label>
+									<div class="position-relative has-icon-right">
+										<input type="email" id="exampleInputEmailId"
+											class="form-control input-shadow"
+											placeholder="seuemail@dominio.com" th:field="*{email}">
+										<div class="form-control-position">
+											<i class="icon-envelope-open"></i>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword">Senha</label>
+									<div class="position-relative has-icon-right">
+										<input type="password" id="exampleInputPassword"
+											class="form-control input-shadow"
+											placeholder="Insira uma senha" th:field="*{senha}">
+										<div class="form-control-position">
+											<i class="icon-lock"></i>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="exampleInputPassword">Confirmar Senha</label>
+									<div class="position-relative has-icon-right">
+										<input type="password" id="exampleInputPassword"
+											class="form-control input-shadow"
+											placeholder="Insira uma senha">
+										<div class="form-control-position">
+											<i class="icon-lock"></i>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="exampleInputPassword">CPF</label>
+									<div class="position-relative has-icon-right">
+										<input type="text" id="exampleInputPassword"
+											class="form-control input-shadow"
+											placeholder="Insira uma senha" th:field="*{pessoa.cpf}">
+										<div class="form-control-position">
+											<i class="icon-lock"></i>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="exampleInputPassword">DATA DE NASCIMENTO</label>
+									<div class="position-relative has-icon-right">
+										<input type="date" id="exampleInputPassword"
+											class="form-control input-shadow pr-3 js-date"
+											placeholder="Insira uma senha" th:field="*{pessoa.dataNascimento}">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="icheck-material-white">
+										<input type="checkbox" id="user-checkbox" checked="" /> <label
+											for="user-checkbox">Eu aceito os termos e condições
+											de uso</label>
+									</div>
+								</div>
+
+								<button type="submit"
+									class="btn btn-light btn-block waves-effect waves-light">Cadastrar</button>
+							</form>
+						</div>
+					</div>
+					<div class="card-footer text-center py-3">
+						<p class="text-warning mb-0">
+							Você já possui uma conta? <a th:href="@{/login}"> Entre aqui</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<th:block layout:fragment="javascript-extras">
+		<script th:src="@{/layout/vendors/jquery/jquery-3.2.1.min.js}"></script>
+		<script th:src="@{/layout/vendors/bootstrap/js/popper.min.js}"></script>
+		<script th:src="@{/layout/vendors/bootstrap/js/bootstrap.min.js}"></script>
+
+		<script th:src="@{/layout/javascript/sidebar-menu.js}"></script>
+
+		<!-- Custom scripts -->
+		<script th:src="@{/layout/javascript/app-script.js}"></script>
+	</th:block>
+
+</body>
+
+
+
+</html>

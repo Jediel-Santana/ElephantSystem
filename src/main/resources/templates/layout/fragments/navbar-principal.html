@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:es="http://www.ElephantSystem.edu">
+
+<th:block th:fragment="menu">
+	
+	<div class="container-menu-header">
+		<div class="wrap_header">
+			<!-- Logo -->
+			<a th:href="@{/api/public/home}" class="logo"> <img
+				th:src="@{/layout/images/logo-es.png}" class="logo-es"
+				alt="IMG-LOGO">
+			</a>
+			
+			<!-- Menu -->
+			<div class="wrap_menu">
+				<nav class="menu">
+					<ul class="main_menu">
+						<li><a th:href="@{/api/public/home}" es:menu="@{/api/public/home}">Home</a></li>
+
+						<li><a th:href="@{/api/public/produtos}" es:menu="@{/api/public/produtos}">Produtos</a></li>
+
+						<li><a th:href="@{/api/public/sobre}" es:menu="@{/api/public/sobre}">Sobre nós</a></li>
+
+						<li><a th:href="@{/api/public/contato}" es:menu="@{/api/public/contato}">Contato</a></li>
+
+						<li sec:authorize="hasRole('ADMINISTRADOR')"><a href="#" es:menu="@{/adm.*}">Administração</a>
+							<ul class="sub_menu">
+								<li><a th:href="@{/adm/dashboard}">Dashboard</a></li>
+								<li><a th:href="@{/adm/gerenciar-vendas}">Gerenciar vendas</a></li>
+								<li><a th:href="@{/adm/gerenciar-colaboradores}">Gerenciar colaboradores</a></li>
+								<li><a th:href="@{/api/produtos/novo}">Novo produto</a></li>
+							</ul></li>
+					</ul>
+				</nav>
+			</div>
+
+			<!-- Header Icon -->
+			<div class="header-icons" th:unless="${#strings.contains(#httpServletRequest.requestURI, 'login')}">
+				
+				
+				<div sec:authorize="not isAuthenticated()" th:unless="${#strings.contains(#httpServletRequest.requestURI, 'login')}">
+				  	<a class="btn-logar" th:href="@{/login}" es:menu="@{/login}">Logar</a>
+				</div>
+				<div class="header-wrapicon1" sec:authorize="isAuthenticated()">
+					<a href="#" class="dis-block js-show-header-dropdown"> <img
+						th:src="@{/layout/images/icons/icon-header-01.png}"
+						class="header-icon1" alt="ICON">
+					</a> 
+					
+					<div class="header-perfil header-dropdown">
+							<div class="btn-drop-perfil">
+								<a th:href="@{/perfil}" class="link-drop-perfil">Perfil</a>
+							</div>
+							<div class="btn-drop-perfil">
+								<a th:href="@{/perfil/pedidos}" class="link-drop-perfil" sec:authorize="hasRole('CLIENTE')">Meus pedidos</a>
+							</div>
+							<div class="btn-drop-perfil">
+								<a th:href="@{/logout}" class="link-drop-perfil">Sair</a>
+							</div>
+					</div>
+				</div>
+				<span class="linedivide1" sec:authorize="not hasRole('ADMINISTRADOR')" ></span>
+				<div class="header-wrapicon2" sec:authorize="not hasRole('ADMINISTRADOR')">
+					<img th:src="@{/layout/images/icons/icon-header-02.png}"
+						class="header-icon1 js-show-header-dropdown" alt="ICON"> <span
+						class="header-icons-noti js-qtd-itens-carrinho">0</span>
+
+					<!-- Header cart noti -->
+					<div
+						class="header-cart header-dropdown container-carrinho-dropdown"
+						data:url-carrinho="@{/api/public/carrinho}" data:url-produto="@{/api/public/produtos}">
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<header th:replace="layout/fragments/navbar-mobile :: navbar"></header>
+
+	<th:block th:replace="carrinho/CarrinhoDropdown"></th:block>
+
+	<script>
+		var item = $('.item-menu-mobile');
+		item.on('click', function(){
+			var submenu = $(this).find('.sub-menu');
+			
+			var display = $(submenu).css('display');
+			console.log(display);
+			if(display == 'none'){
+				$(submenu).css('display', 'block');
+			} else {
+				$(submenu).css('display', 'none');
+			}
+			
+		});
+		
+		
+	</script>
+
+	<script th:src="@{/javascripts/vendors/handlebars.min-v4.7.7.js}"></script>
+	<script th:src="@{/javascripts/carrinho.itens-dropdown.js}"></script>
+	<script th:src="@{/javascripts/carrinho.quantidade-itens.js}"></script>
+</th:block>
+
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:es="http://www.elephantsystem.edu"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+
+<link rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+
+
+
+	<th:block th:fragment="modal-content">
+		<div class="modal-dialog modal-lg" id="modalUsuario">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close cls-modal" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title font-weight-bold" th:if="${usuario.novo}">Novo colaborador</h4>
+					<h4 class="modal-title font-weight-bold" th:unless="${usuario.novo}">Edição colaborador</h4>
+				</div>
+
+
+				<div class="modal-body" th:fragment="modal-body">
+
+					<div class="container">
+						<form id="form-venda" method="POST"
+							th:action="@{/api/usuarios/colaborador/novo}"
+							class="js-formulario-usuario pt-2" th:object="${usuario}">
+							<es:message />
+
+
+							<input type="hidden" th:field="*{id}">
+							<input type="hidden" th:field="*{pessoa.id}">
+							<div class="row">
+								<div class="col-sm-12 col-lg-6">
+									<div class="form-group" es:classforerror="pessoa.nome">
+										<label for="descricao" class="control-label">Nome</label> <input
+											type="text" id="descricao" class="form-control"
+											th:field="*{pessoa.nome}" />
+									</div>
+								</div>
+								<div class="col-sm-12 col-lg-6">
+									<div class="form-group" es:classforerror="email">
+										<label for="nome" class="control-label">Email</label> <input
+											type="text" id="codigoBarras" class="form-control"
+											th:field="*{email}" />
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 col-lg-6">
+									<div class="form-group"
+										es:classforerror="pessoa.dataNascimento">
+										<label for="descricao" class="control-label">Data
+											nascimento</label> <input type="date" id="descricao"
+											class="form-control" th:field="*{pessoa.dataNascimento}" />
+									</div>
+								</div>
+								<div class="col-sm-12 col-lg-6">
+									<div class="form-group" es:classforerror="pessoa.cpf">
+										<label for="nome" class="control-label">Cpf</label> <input
+											type="text" id="codigoBarras" class="form-control"
+											th:field="*{pessoa.cpf}" />
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12 col-lg-6">
+									<div class="form-group" es:classforerror="grupos">
+										<label for="descricao" class="control-label"
+											style="display: block;">Grupos</label>
+
+										<div>
+											<th:block th:each="grupo : ${grupos}">
+												<div class="checkbox" style="padding: 0 2px;">
+													<input type="checkbox" th:value="${grupo.id}"
+														th:field="*{grupos}" /> <label th:text="${grupo.nome}"
+														th:for="${#ids.prev('grupos')}">Grupo</label>
+												</div>
+											</th:block>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="col-sm-12 col-lg-6">
+									<label>Status</label>
+									<div>
+										<input type="checkbox" class="js-status"
+											th:field="*{ativo}" data-size="small" data-off-color="danger"
+											data-on-text="Ativo" data-off-text="Inativo">
+									</div>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-sm-12 text-center" style="padding: 10px 0;">
+									<button type="submit"
+										class="btn btn-primary js-btn-form-usuario"
+										data:url="${usuario.novo} ? @{/api/usuarios/colaborador/novo} : @{/api/usuarios/colaborador/{id}(id=${usuario.id})}"
+										style="border: 1px solid rgba(0, 0, 0, .15);">[[${usuario.novo
+										? 'Cadastrar' : 'Atualizar'}]] produto</button>
+								</div>
+							</div>
+						</form>
+
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+
+		
+		<script>
+			$('.js-status').bootstrapSwitch();
+		</script>
+		<script>
+			var close = $('#modalUsuario .cls-modal');
+			close.on('click', function(evento) {
+				var modalUsuario = $('#modalUsuario')
+				modalUsuario.modal().hide();
+				$('.modal-backdrop').hide();
+
+				//modalUsuario.toggleClass('show');
+
+			});
+		</script>
+
+		<script th:src="@{/javascripts/usuario.cadastro.js}"></script>
+
+	</th:block>
+
+</body>
+
+
+</html>

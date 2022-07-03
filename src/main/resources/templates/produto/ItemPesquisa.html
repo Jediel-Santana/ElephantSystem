@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:es="http://www.elephantsystem.edu"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<head>
+<meta charset="UTF-8" />
+
+
+</head>
+
+<th:block th:fragment="pesquisa">
+	<section class="bgwhite p-t-55 p-b-65">
+		<form th:object="${produtoFilter}" th:href="@{/produtos}" method="GET">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
+						<div class="leftbar p-r-20 p-r-0-sm">
+							<div class="my-3">
+								<label class="control-label m-text15">Descrição</label>
+								<div class="search-product pos-relative bo4 of-hidden">
+									<input class="s-text7 size6 p-l-23 p-r-23" type="text"
+										name="search-product" placeholder="Buscar pela descrição..."
+										th:field="*{descricao}">
+
+									<button
+										class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
+										<i class="fs-12 fa fa-search" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="my-3">
+								<label class="control-label m-text15">Código de barras</label>
+								<div class="search-product pos-relative bo4 of-hidden">
+									<input class="s-text7 size6 p-l-23 p-r-23" type="text"
+										name="search-product-codigo-barras"
+										placeholder="Código de barras" th:field="*{codigoDeBarras}">
+
+									<button
+										class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
+										<i class="fs-12 fa fa-search" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+
+							<!--  -->
+							<h4 class="m-text14 p-b-7">Gêneros</h4>
+
+							<ul class="p-b-54">
+								<li class="p-t-4"><input type="checkbox" value=""
+									class="js-selecao-filtro-genero-todos"><span
+									class="s-text13"> Todos </span></li>
+
+								<th:block th:each="genero : ${generos}">
+									<li class="p-t-4">
+										<div class="checkbox checkbox-inline">
+
+											<input type="checkbox" th:value="${genero}"
+												th:field="*{generos}" class="js-selecao-filtro-genero"><span
+												class="s-text13" th:for="${#ids.prev('generos')}">
+												[[${genero.descricao}]] </span>
+										</div>
+									</li>
+								</th:block>
+
+							</ul>
+							<h4 class="m-text14 p-b-7">Categorias</h4>
+
+							<ul class="p-b-54">
+								<li class="p-t-4"><input type="checkbox" value=""
+									class="js-selecao-filtro-categoria-todos"><span
+									class="s-text13"> Todas </span></li>
+
+								<th:block th:each="categoria : ${categorias}">
+									<li class="p-t-4">
+										<div class="checkbox checkbox-inline">
+											<input type="checkbox" th:value="${categoria}"
+												class="js-selecao-filtro-categoria" th:field="*{categorias}"><span
+												class="s-text13"> [[${categoria.descricao}]] </span>
+										</div>
+									</li>
+								</th:block>
+
+							</ul>
+							<h4 class="m-text14 p-b-7">Tamanhos</h4>
+
+							<ul class="p-b-54">
+								<li class="p-t-4"><input type="checkbox" value=""
+									class="js-selecao-filtro-tamanho-todos"><span
+									class="s-text13"> Todos </span></li>
+
+								<th:block th:each="tamanho : ${tamanhos}">
+									<li class="p-t-4"><input type="checkbox"
+										th:value="${tamanho.id}" th:field="*{tamanhos}"
+										class="js-selecao-filtro-tamanho"><span
+										class="s-text13"> [[${tamanho.descricao}]] </span></li>
+								</th:block>
+
+							</ul>
+
+							<!--  -->
+							<h4 class="m-text14 p-b-32">Filtros</h4>
+
+							<div class="filter-price p-t-22 p-b-50 bo3">
+								<div class="m-text15 p-b-17">Preço</div>
+
+								<div class="wra-filter-bar">
+									<div id="filter-bar"></div>
+								</div>
+
+								<div class="flex-sb-m flex-w p-t-16">
+									<div class="w-size11">
+										<!-- Button 
+										<button
+											class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4">
+											Filtrar</button>
+										-->
+									</div>
+
+									<div class="s-text3 p-t-10 p-b-10">
+										R$<span id="value-lower">610</span> - R$<span id="value-upper">980</span>
+										<input class="js-valor-de" type="hidden" id="valorDe" name="valorDe">
+										<input class="js-valor-ate" type="hidden" id="valorAte" name="valorAte">
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<button
+							class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4"
+							type="submit">Filtrar</button>
+
+
+					</div>
+
+					<div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
+						<!--  -->
+						<div class="flex-sb-m flex-w p-b-35">
+							<div class="flex-w">
+								
+								<div
+									class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+									<select class="form-control" id="select-filtro-preco">
+										<option value="">Preço</option>
+										<option value="1" data-valor-de="1.00" data-valor-ate="50.00">R$1,00 - R$50,00</option>
+										<option value="2" data-valor-de="50.00" data-valor-ate="100.00">R$50,00 - R$100,00</option>
+										<option value="3" data-valor-de="100.00" data-valor-ate="150.00">R$100,00 - R$150,00</option>
+										<option value="4" data-valor-de="150.00" data-valor-ate="200.00">R$150,00 - R$200,00</option>
+										<option value="5" data-valor-de="200.00">R$200,00+</option>
+									</select>
+								</div>
+							</div>
+
+							<span th:if="${not pagina.vazia}" class="s-text8 p-t-5 p-b-5">
+								Exibindo 1–[[${pagina.tamanhoConteudo}]] de [[${totalItens}]]
+								resultados </span>
+						</div>
+
+						<!-- Product -->
+
+						<div class="row">
+							<th:block th:each="produto : ${pagina.conteudo}">
+								<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
+									<!-- Block2 -->
+									<th:block th:replace="produto/item :: produto"></th:block>
+								</div>
+							</th:block>
+						</div>
+
+						<div class="row" th:if="${pagina.vazia}">
+							<div
+								class="col-sm-12 col-md-12 col-lg-12 p-b-25 justify-content-center">
+								<h1>Lamento, nenhum produto encontrado...</h1>
+								<div class="text-center">
+									<a class="btn btn-default my-3" th:href="@{/api/public/produtos}">Limpar
+										filtro</a>
+								</div>
+							</div>
+						</div>
+
+
+						<es:pagination page="${pagina}" />
+					</div>
+				</div>
+			</div>
+		</form>
+	</section>
+
+
+</th:block>
+
+<th:block th:fragment="js-item-pesquisa">
+
+	<script type="text/javascript"
+		th:src="@{/layout/vendors/noui/nouislider.min.js}"></script>
+
+	<script type="text/javascript">
+		$(".selection-1").select2({
+			minimumResultsForSearch : 20,
+			dropdownParent : $('#dropDownSelect1')
+		});
+
+		$(".selection-2").select2({
+			minimumResultsForSearch : 20,
+			dropdownParent : $('#dropDownSelect2')
+		});
+	</script>
+
+	<script type="text/javascript">
+		/*[ No ui ]
+		===========================================================*/
+		var filterBar = document.getElementById('filter-bar');
+
+		noUiSlider.create(filterBar, {
+			start : [ 1, 1000 ],
+			connect : true,
+			range : {
+				'min' : 1,
+				'max' : 1000
+			}
+		});
+
+		var skipValues = [ document.getElementById('value-lower'),
+				document.getElementById('value-upper') ];
+
+		filterBar.noUiSlider.on('update', function(values, handle) {
+			skipValues[handle].innerHTML = Math.round(values[handle]);
+			$('.js-valor-de').val(values[0]);
+			$('.js-valor-ate').val(values[1]);
+		});
+	</script>
+	
+	<script>
+		var selectFiltroPreco = $('#select-filtro-preco');
+		selectFiltroPreco.on('change', function(){
+			var option = $(this).find('option:selected');
+			var valorDe = $(option).data('valor-de');
+			var valorAte = $(option).data('valor-ate');
+			$('.js-valor-de').val(valorDe);
+			$('.js-valor-ate').val(valorAte);
+		});
+
+	</script>
+
+	<script th:src="@{/javascripts/multiselecao.js}"></script>
+	<script th:src="@{/javascripts/produto.multiselecao-filtro.js}"></script>
+
+</th:block>
+
+
+
+</html>

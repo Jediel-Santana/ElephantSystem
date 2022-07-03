@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+
+<th:block th:fragment="fotos">
+		<th:block th:each="foto, stat : ${produto.foto}">
+			<div class="group-foto" data:index="${stat.index}"
+				data:disponivel="${foto == null}">
+				<input class="js-nome-foto" type="hidden" th:field="${produto.foto[__${stat.index}__]}">
+				<input class="js-url-foto" type="hidden"
+					th:field=${produto.urlFoto[__${stat.index}__]}> <input
+					class="js-content-type-foto" type="hidden"
+					th:field=${produto.contentType[__${stat.index}__]}>
+			</div>
+		</th:block>
+</th:block>
+
+</html>

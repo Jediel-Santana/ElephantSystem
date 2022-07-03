@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	xmlns:es="http://www.ElephantSystem.edu"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}">
+</head>
+
+
+<body class="animsition">
+
+	<main layout:fragment="conteudo">
+
+
+
+		<div class="page-header text-center pb-2 mt-4 mb-2 border-bottom">
+
+			<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m"
+				style="background-image: url(/layout/images/heading-pages-02.jpg);">
+				<h2 class="l-text2 t-center" th:if="${usuario.novo}">Cadastro
+					de colaborador(a)</h2>
+				<h2 class="l-text2 t-center" th:unless="${usuario.novo}">Edição
+					de colaborador(a)</h2>
+			</section>
+
+
+		</div>
+
+		<div class="container">
+			<form method="POST" th:action="@{/api/usuarios/colaborador/novo}"
+				class="js-formulario-produto pt-2" th:object="${usuario}">
+				<es:message />
+
+
+				<input type="hidden" th:field="*{id}">
+				<div class="row">
+					<div class="col-md-12 col-lg-6">
+						<div class="form-group" es:classforerror="pessoa.nome">
+							<label for="descricao" class="control-label">Nome</label> <input
+								type="text" id="descricao" class="form-control"
+								th:field="*{pessoa.nome}" />
+						</div>
+					</div>
+					<div class="col-md-12 col-lg-6">
+						<div class="form-group" es:classforerror="email">
+							<label for="nome" class="control-label">Email</label> <input
+								type="text" id="codigoBarras" class="form-control"
+								th:field="*{email}" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 col-lg-6">
+						<div class="form-group" es:classforerror="pessoa.dataNascimento">
+							<label for="descricao" class="control-label">Data
+								nascimento</label> <input type="date" id="descricao"
+								class="form-control" th:field="*{pessoa.dataNascimento}" />
+						</div>
+					</div>
+					<div class="col-md-12 col-lg-6">
+						<div class="form-group" es:classforerror="pessoa.cpf">
+							<label for="nome" class="control-label">Cpf</label> <input
+								type="text" id="codigoBarras" class="form-control"
+								th:field="*{pessoa.cpf}" />
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12 col-lg-8">
+						<div class="form-group" es:classforerror="grupos">
+							<label for="descricao" class="control-label"
+								style="display: block;">Grupos</label>
+
+							<div>
+								<th:block th:each="grupo : ${grupos}">
+									<div class="checkbox" style="padding: 0 2px;">
+										<input type="checkbox" th:value="${grupo.id}"
+											th:field="*{grupos}" /> <label th:text="${grupo.nome}"
+											th:for="${#ids.prev('grupos')}">Grupo</label>
+									</div>
+								</th:block>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-md-12 col-lg-4"
+						>
+						<label>Status</label>
+						<div>
+							<input type="checkbox" id="status" class="js-status"
+								th:field="*{ativo}" data-size="small" data-off-color="danger"
+								data-on-text="Ativo" data-off-text="Inativo">
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-sm-12 text-center" style="padding: 10px 0;">
+						<button type="submit" class="btn btn-primary"
+							style="border: 1px solid rgba(0, 0, 0, .15);">[[${usuario.novo
+							? 'Cadastrar' : 'Atualizar'}]] produto</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<input type="hidden" id="urlProdutos" th:value="@{/api/produtos}">
+		<th:block th:replace="hbs/FotoProduto"></th:block>
+		<th:block th:replace="hbs/TamanhoProduto :: script-tamanho-produto"></th:block>
+	</main>
+
+	<th:block layout:fragment="javascript-extras">
+		<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+		<script>
+			$('.js-status').bootstrapSwitch();
+		</script>		
+		
+		
+	</th:block>
+
+</body>
+
+
+
+</html>

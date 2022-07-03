@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Elephant System</title>
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/vendors/fontawesome/all.min.css}">
+<link rel="stylesheet" th:href="@{/layout/stylesheet/vendors.min.css}" />
+<link rel="stylesheet" th:href="@{/stylesheets/ES-Style.css}" />
+</head>
+
+<body class="es-layout-simple-page">
+	<div class="es-layout-simple-page__container">
+		<th:block layout:fragment="conteudo"></th:block>
+	</div>
+</body>
+
+
+<script type="text/javascript"
+	th:src="@{/layout/vendors/fontawesome/all.min.js}"></script>
+
+</html>

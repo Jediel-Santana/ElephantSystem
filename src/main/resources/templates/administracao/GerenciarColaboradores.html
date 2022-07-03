@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:es="http://www.elephantsystem.edu"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+
+<link rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}">
+
+<style>
+.bootstrap-switch-small {
+	width: 143.023px !important;
+}
+
+@media ( max-width : 520px) {
+	.bootstrap-switch-small {
+		width: 121.000px !important;
+	}
+}
+</style>
+
+</head>
+
+
+<body class="animsition es-backgroud-gradient-red-white">
+
+	<main layout:fragment="conteudo" class="main-mg-top">
+
+		<div class="page-header text-center pb-2 mt-4 mb-2 border-bottom">
+			<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m"
+				style="background-image: url(/layout/images/banner-adm.jpg); opacity: .7;">
+				<h2 class="l-text2 t-center">Gerenciar colaboradores</h2>
+			</section>
+		</div>
+
+
+		<div class="container mt-3">
+			<div class="card">
+				<div class="card-body">
+					<div class="d-flex justify-content-end my-2">
+						<a href="#" class="btn btn-secondary btn-novo-usuario"
+							data-toggle="modal" data-target="#modalUsuario"
+							data:url="@{/api/usuarios/colaborador/novo}">Novo colaborador</a>
+					</div>
+					<form>
+						<div class="row">
+							<div class="col-4">
+								<div class="form-group">
+									<label class="control-label">Nome</label> <input type="text"
+										class="form-control">
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="form-group">
+									<label class="control-label">Email</label> <input type="text"
+										class="form-control">
+								</div>
+							</div>
+							<div class="col-2 d-flex align-items-center">
+								<div class="form-group">
+									<label class="control-label d-block">Status</label> 
+									<input type="checkbox" class="js-status-filtro" data-size="small"
+										data-off-color="danger" data-on-text="Ativo"
+										data-off-text="Inativo">
+								</div>
+							</div>
+	
+							<div class="col-2 d-flex align-items-center">
+								<button class="btn btn-secondary">Filtrar</button>
+							</div>
+						</div>
+						
+						
+					</form>
+				</div>
+			</div>
+
+
+			<div class="card" style="margin-bottom: 2px;" >
+				<div class="card-body">
+					<h5 class="card-title">Colaboradores</h5>
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col" class="card-clean-padding">Nome</th>
+									<th scope="col" class="card-clean-padding">Email</th>
+									<th scope="col" class="card-clean-padding col-status-venda">Status</th>
+									<th scope="col" class="card-clean-padding"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<th:block th:each="usuario : ${pagina.conteudo}">
+									<tr>
+										<td class="card-clean-padding td-overflow-ellipsis"
+											th:text="${usuario.pessoa.nome}">Maria</td>
+										<td class="card-clean-padding td-overflow-ellipsis"
+											th:text="${usuario.email}">email@dominio.com</td>
+										<td class="card-clean-padding"
+											th:text="${usuario.ativo == true ? 'Ativo' : 'Inativo'}">Ativo</td>
+										<td class="card-clean-padding"><a href="#"
+											class="js-btn-edicao-usuario" data-toggle="modal"
+											data-target="#modalUsuario"
+											data:url="@{/api/usuarios/colaborador/{id}(id=${usuario.id})}"><i
+												class="fa fa-pencil"></i></a></td>
+									</tr>
+								</th:block>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			'
+			<es:pagination page="${pagina}"/>
+			
+		</div>
+
+
+		<div class="modal fade modal-xl container-modal-usuario"
+			id="modalUsuario" tabindex="-1" role="dialog" th:fragment="modal"
+			style="background-color: rgb(108, 117, 127, 0.7);">
+			<div class="usuario-content"></div>
+		</div>
+	</main>
+
+
+
+
+	<th:block layout:fragment="javascript-extras">
+		<script th:src="@{/javascripts/usuario.cadastro.js}"></script>
+		<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+		<script>
+			$('.js-status-filtro').bootstrapSwitch();
+		</script>
+	</th:block>
+
+</body>
+
+
+
+</html>

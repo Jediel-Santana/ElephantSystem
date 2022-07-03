@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="banner-video">
+	<section class="parallax0 parallax100"
+		style="background-image: url(/layout/images/video.png);">
+		<div class="overlay0 p-t-190 p-b-200">
+			<div class="flex-col-c-m p-l-15 p-r-15">
+				<span class="m-text9 p-t-45 fs-20-sm"> A batida </span>
+
+				<h3 class="l-text1 fs-35-sm">Lookbook</h3>
+
+				<span class="btn-play s-text4 hov5 cs-pointer p-t-25"
+					data-toggle="modal" data-target="#modal-video-01"> <i
+					class="fa fa-play" aria-hidden="true"></i> Ver Video
+				</span>
+			</div>
+		</div>
+	</section>
+
+	<div class="modal fade" id="modal-video-01" tabindex="-1" role="dialog"
+		aria-hidden="true">
+
+		<div class="modal-dialog" role="document" data-dismiss="modal">
+			<div class="close-mo-video-01 trans-0-4" data-dismiss="modal"
+				aria-label="Close">&times;</div>
+
+			<div class="wrap-video-mo-01">
+				<div class="w-full wrap-pic-w op-0-0">
+					<img th:src="@{/layout/images/video.png}" alt="IMG">
+				</div>
+				<div class="video-mo-01">
+					<iframe src="https://www.youtube.com/embed/HfPt-HpuxLw"
+						allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+</html>

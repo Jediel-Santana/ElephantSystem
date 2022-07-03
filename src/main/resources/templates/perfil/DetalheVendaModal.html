@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+
+<link rel="stylesheet" type="text/css">
+
+
+
+</head>
+
+<body>
+
+
+
+	<th:block th:fragment="modal-content">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title font-weight-bold">Venda nº
+						[[${venda.id}]]</h4>
+				</div>
+
+
+				<div class="modal-body">
+
+					<div class="container">
+						<!-- 
+					 -->
+						<div class="row">
+							<div class="form-group col-sm-12 col-lg-4">
+								<label class="control-label font-weight-bold">Data da
+									venda</label>
+								<div>
+									<span th:text="${#temporals.format(venda.dataCriacao, 'dd/MM/yyyy hh-mm')}">10/10/2022</span>
+								</div>
+							</div>
+							<div class="form-group col-sm-12 col-lg-4">
+								<label class="control-label font-weight-bold">Data da
+									entrega</label>
+
+								<div>
+									<span>12/10/2022</span>
+								</div>
+							</div>
+
+							<div class="form-group col-sm-12 col-lg-4">
+								<label class="control-label font-weight-bold">Status</label>
+								<div>
+									<span class="mt-2 js-status-venda" th:text="${venda.status}">Aprovado</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group col-sm-12 col-lg-4">
+								<label class="control-label font-weight-bold">Forma de
+									pagamento</label>
+								<div>
+									<span th:text="${venda.formaPagamento}">BOLETO</span>
+								</div>
+							</div>
+							<div class="form-group col-sm-12 col-lg-4">
+								<label class="control-label font-weight-bold">Endereço
+									da entrega</label>
+								<div>
+									<span>[[${venda.enderecoEntrega.logradouro}]],
+										[[${venda.enderecoEntrega.numero}]],
+										[[${venda.enderecoEntrega.complemento}]],
+										[[${venda.enderecoEntrega.bairro}]]. CEP:
+										[[${venda.enderecoEntrega.cep}]]. Pernambuco/Olinda</span>
+								</div>
+							</div>
+
+							<div class="form-group col-sm-12 col-lg-4">
+								<label class="control-label font-weight-bold">Valor
+									total</label>
+								<div>
+									<span>R$ [[${venda.valorTotal}]]</span>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="row js-status-select-venda">
+							<th:block th:fragment="statusPedido">
+								<div class="form-group col-12"
+									th:if="not ${#strings.equals(venda.status.descricao, 'ENTREGUE')}">
+									<label class="control-label font-weight-bold">Alterar
+										status pedido</label>
+									<div class="dropdown"
+										data:url-status="@{/vendas/status/{idVenda}(idVenda=${venda.id})}">
+										<button class="btn btn-secondary dropdown-toggle"
+											type="button" id="dropdownMenuButton" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false">Status</button>
+										<div class="dropdown-menu"
+											aria-labelledby="dropdownMenuButton">
+											<a class="dropdown-item js-link-status-venda"
+												data:status="APROVADA"
+												th:if="${#strings.equalsIgnoreCase(venda.status.descricao, 'ANÁLISE')}"
+												sec:authorize="hasRole('ADMINISTRADOR')">Aprovado </a> <a
+												class="dropdown-item js-link-status-venda"
+												data:status="DESPACHADO"
+												th:if="${#strings.equalsIgnoreCase(venda.status, 'APROVADA')}"
+												sec:authorize="hasRole('ADMINISTRADOR')">Despachado</a> <a
+												class="dropdown-item js-link-status-venda"
+												data:status="ENTREGUE"
+												th:if="${#strings.equalsIgnoreCase(venda.status.descricao, 'DESPACHADO')}"
+												>Entregue</a>
+										</div>
+									</div>
+
+									<input th:fragment="statusAtual" type="hidden" id="statusAtualVenda"
+										th:value="${venda.status.descricao}">
+								</div>
+
+
+								<script>
+									var btnDropDown = $('.js-link-status-venda');
+									btnDropDown.on('click', function() {
+										var botao = $(this);
+										var status = botao.data('status');
+										var drop = botao.closest('.dropdown');
+										var url = $(drop).data('url-status');
+
+										var resposta = $.ajax({
+											url : url,
+											type : 'PUT',
+											data : {
+												status : status
+											},
+											success : function(html) {
+												$('.js-status-select-venda')
+														.html(html);
+												
+												var statusAtual = $('#statusAtualVenda').val();
+												$('.js-status-venda').html(statusAtual);
+											}
+										});
+
+									});
+								</script>
+
+							</th:block>
+						</div>
+
+						<section id="carrinho-mobile">
+
+							<div class="container">
+								<div class="tabela-itens-carrinho-mobile">
+									<th:block th:each="itemVenda, ivStat : ${itensVenda}">
+										<div class="item-carrinho-mobile js-item-carrinho">
+											<div class="carrinho-col-numero">
+												<span class="carrinho-col-numero__span">Produto
+													[[${ivStat.index + 1}]]</span>
+											</div>
+											<div class="carrinho-col-conteudo-produto">
+												<div class="carrinho-col-conteudo-produto__div">
+													<img th:src="${itemVenda.fotoThumbnail}"
+														class="carrinho-col-conteudo-produto__img">
+												</div>
+
+												<div class="carrinho-col-conteudo-produto__info">
+													<span class="carrinho-col-conteudo-produto__descricao ml-2">[[${itemVenda.descricaoProduto}]]</span>
+													<span
+														class="carrinho-col-conteudo-produto--precoTotal js-valor-total-item ml-2"><span
+														style="color: black; font-size: 0.8em">5 x</span> R$
+														[[${itemVenda.precoUnitario}]]</span>
+													<div class="ml-2">
+														<p>
+															Tamanho: <span>[[${itemVenda.tamanho.descricao}]]</span>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</th:block>
+								</div>
+							</div>
+						</section>
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+
+		<script>
+			var close = $('#modalDetalheVenda .close');
+			close.on('click', function(evento) {
+				$('#modalDetalheVenda').modal().hide();
+				$('.modal-backdrop').hide();
+			});
+		</script>
+
+
+
+
+	</th:block>
+
+</body>
+
+
+</html>

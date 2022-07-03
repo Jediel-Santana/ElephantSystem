@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="icon" th:href="@{/layout/images/logo-icon.png}"
+	type="image/x-icon">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/vendors/bootstrap/css/bootstrap.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/fonts/themify/themify-icons.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/fonts/Linearicons-Free-v1.0.0/icon-font.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/fonts/elegant-font/html-css/style.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/vendors/animate/animate.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/vendors/css-hamburgers/hamburgers.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/vendors/animsition/css/animsition.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/vendors/fontawesome/all.min.css}">
+
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/vendors/bootstrap-datepicker.standalone.min}">
+
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/vendors/slick/slick.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/vendors/lightbox2/css/lightbox.min.css}">
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+
+<link rel="stylesheet" th:href="@{/layout/stylesheet/main.css}" />
+<link rel="stylesheet" th:href="@{/layout/stylesheet/util.css}" />
+<link rel="stylesheet" th:href="@{/stylesheets/ES-Style.css}" />
+
+<!--===============================================================================================-->
+
+
+
+</head>
+
+<body>
+	
+	<input type="hidden" name="_csrf" th:value="${_csrf.token}">
+	<input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}">
+
+
+
+	<script type="text/javascript"
+		th:src="@{/layout/vendors/jquery/jquery-3.2.1.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/javascripts/vendors/numeral.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/javascripts/vendors/pt-br.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/javascripts/vendors/jquery.masknumber.min.js}"></script>
+	<script th:src="@{/javascripts/ElephantSystem.js}"></script>
+	
+	<th:block th:replace="layout/fragments/navbar-principal :: menu"></th:block>
+
+	<main class="principal" layout:fragment="conteudo"></main>
+
+	<th:block
+		th:if="${#strings.contains(#httpServletRequest.requestURI, '/public/')}">
+		<footer th:replace="layout/fragments/rodape :: rodape"></footer>
+	</th:block>
+
+	<div class="btn-back-to-top bg0-hov" id="myBtn">
+		<span class="symbol-btn-back-to-top"> <i
+			class="fa fa-angle-double-up" aria-hidden="true"></i>
+		</span>
+	</div>
+	<script th:src="@{/javascripts/vendors/toastr.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/bootstrap-datepicker.min}"></script>
+	<script th:src="@{/javascripts/vendors/bootstrap-datepicker.pt-BR.min}"></script>
+	<script type="text/javascript"
+		th:src="@{/layout/vendors/animsition/js/animsition.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/layout/vendors/bootstrap/js/popper.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/layout/vendors/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/layout/vendors/slick/slick.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/layout/javascript/slick-custom.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/layout/vendors/countdowntime/countdowntime.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/layout/vendors/lightbox2/js/lightbox.min.js}"></script>
+
+	<!-- 
+	<script type="text/javascript"
+		th:src="@{/layout/vendors/sweetalert/sweetalert.min.js}"></script>
+	 -->
+	<script type="text/javascript"
+		th:src="@{/javascripts/vendors/handlebars.min-v4.7.7.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/layout/vendors/fontawesome/all.min.js}"></script>
+
+	<script th:src="@{/layout/javascript/main.js}"></script>
+
+
+	<th:block layout:fragment="javascript-extras"></th:block>
+</body>
+
+</html>

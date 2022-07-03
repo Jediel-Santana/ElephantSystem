@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<link th:href="@{/layout/vendors/pace/pace.min.css}" rel="stylesheet" />
+<script th:src="@{/layout/vendors/pace/pace.min.js}"></script>
+<!--favicon-->
+
+<!-- Bootstrap core CSS-->
+<link th:href="@{/layout/vendors/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<!-- animate CSS-->
+<link th:href="@{/layout/stylesheet/vendors/animate.css}"
+	rel="stylesheet" type="text/css" />
+<!-- Icons CSS-->
+<link th:href="@{/layout/stylesheet/vendors/icons.css}" rel="stylesheet"
+	type="text/css" />
+<!-- Custom Style-->
+<link th:href="@{/layout/stylesheet/app-style.css}" rel="stylesheet" />
+
+
+</head>
+
+
+<body class="animsition es-backgroud-gradient-red-white" style="height:0;">
+
+	<main layout:fragment="conteudo">
+		<section class="login">
+			<div id="wrapper">
+
+				<div class="card card-authentication1 mx-auto my-5 card-login">
+					<div class="card-body">
+						<div class="card-content p-2" style="margin-top: 50px">
+							<div class="text-center">
+								<img th:src="@{layout/images/es-sem-fundo.png}" alt="logo icon"
+									width="150px" style="border-radius: 40px;">
+							</div>
+							<form th:action="@{/login}" method="POST" class="login-form">
+							<div class="card-title text-uppercase text-center py-3">Login</div>
+								
+								<div class="painel"
+									th:if="${#bools.isTrue(param.failed)}">E-mail e/ou Senha
+									não conferem</div>
+
+								<div class="form-group">
+									<label for="exampleInputUsername" class="sr-only">Email</label>
+									<div class="position-relative has-icon-right">
+										<input type="text" id="exampleInputUsername"
+											class="form-control input-shadow"
+											placeholder="Insira seu email" name="username">
+										<div class="form-control-position">
+											<i class="fa fa-user"></i>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword" class="sr-only">Senha</label>
+									<div class="position-relative has-icon-right">
+										<input type="password" id="exampleInputPassword"
+											class="form-control input-shadow"
+											placeholder="Insira sua senha" name="password">
+										<div class="form-control-position">
+											<i class="fa fa-lock"></i>
+										</div>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-6">
+										<div class="icheck-material-white">
+											<input type="checkbox" id="user-checkbox" /> <label
+												for="user-checkbox">Lembrar</label>
+										</div>
+									</div>
+									<div class="form-group col-6 text-right">
+										<a th:href="@{/api/public/usuarios/esqueciSenha}">Esqueci
+											a senha</a>
+									</div>
+								</div>
+
+								<div style="padding: 40px 0">
+									<button type="submit" class="btn btn-light btn-block">Entrar</button>
+								</div>
+
+							</form>
+						</div>
+					</div>
+					<div class="card-footer text-center py-3">
+						<p class="text-warning mb-0">
+							Você não tem uma conta? <a th:href="@{/api/public/usuarios/novo}">Cadastre-se</a>
+						</p>
+					</div>
+				</div>
+
+				<!--Start Back To Top Button-->
+				<a href="javaScript:void();" class="back-to-top"><i
+					class="fa fa-angle-double-up"></i> </a>
+
+
+			</div>
+		</section>
+	</main>
+
+	<th:block layout:fragment="javascript-extras">
+		<script th:src="@{/layout/vendors/jquery/jquery-3.2.1.min.js}"></script>
+		<script th:src="@{/layout/vendors/bootstrap/js/popper.min.js}"></script>
+		<script th:src="@{/layout/vendors/bootstrap/js/bootstrap.min.js}"></script>
+
+		<script th:src="@{/layout/javascript/sidebar-menu.js}"></script>
+
+		<!-- Custom scripts -->
+		<script th:src="@{/layout/javascript/app-script.js}"></script>
+	</th:block>
+
+</body>
+
+
+
+</html>

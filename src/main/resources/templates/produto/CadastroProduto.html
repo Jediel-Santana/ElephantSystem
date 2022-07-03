@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	xmlns:es="http://www.ElephantSystem.edu"
+	layout:decorate="~{layout/LayoutPadrao}">
+	
+<head>
+
+<link rel="stylesheet"
+	th:href="@{@{/layout/vendors/sweetalert/sweetalert2.all.min.css}}">
+<link rel="stylesheet" th:href="@{/stylesheets/vendors/uikit.min.css}">
+<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}">
+<link rel="stylesheet"
+	th:href="@{/stylesheets/vendors/bootstrap-select.min.css}">
+</head>
+
+
+<body class="animsition">
+
+	<main layout:fragment="conteudo">
+
+
+
+		<div class="page-header text-center pb-2 mt-4 mb-2 border-bottom">
+
+			<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m"
+				style="background-image: url(/layout/images/produtos.jpg);">
+				<h2 class="l-text2 t-center" th:if="${produto.novo}">Cadastro
+					de produto</h2>
+				<h2 class="l-text2 t-center" th:unless="${produto.novo}">Edição
+					de produto</h2>
+			</section>
+
+
+		</div>
+
+		<div class="container">
+			<form method="POST"
+				th:action="${produto.novo} ? @{/api/produtos/novo} : @{/api/produtos/{idProduto}(idProduto=${produto.id})}"
+				class="js-formulario-produto pt-2" th:object="${produto}">
+				<es:message />
+				
+				
+				<input type="hidden" th:field="*{id}">
+				<div class="row">
+					<div class="col-md-12 col-lg-6">
+						<div class="form-group" es:classforerror="descricao">
+							<label for="descricao" class="control-label">Descrição</label> <input
+								type="text" id="descricao" class="form-control"
+								th:field="*{descricao}" />
+						</div>
+					</div>
+					<div class="col-md-12 col-lg-6">
+						<div class="form-group" es:classforerror="codigoDeBarras">
+							<label for="nome" class="control-label">Código de barras</label>
+							<input type="text" id="codigoBarras" class="form-control"
+								th:field="*{codigoDeBarras}" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 col-lg-6">
+						<div class="form-group" es:classforerror="genero">
+							<label for="categoria" class="control-label">Genêro</label> <select
+								class="form-control" id="categoria" th:field="*{genero}">
+								<option value="">Selecione o genêro</option>
+								<option th:each="genero : ${generos}" th:value="${genero}"
+									th:text="${genero.descricao}">Masculino</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-12 col-lg-6">
+						<div class="form-group" es:classforerror="categoria">
+							<label for="categoria" class="control-label">Categoria</label> <select
+								class="form-control" id="tipo" th:field="*{categoria}">
+								<option value="">Selecione a categoria</option>
+								<option th:each="categoria : ${categorias}"
+									th:value="${categoria}" th:text="${categoria.descricao}">Camisa</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+
+					<div class="col-6 col-md-12 col-lg-6">
+						<div class="form-group" es:classforerror="preco">
+							<label for="preco" class="control-label">Preço</label>
+
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-addon">R$</span>
+								</div>
+								<input type="text" class="form-control js-decimal"
+									th:field="*{preco}" />
+							</div>
+						</div>
+
+					</div>
+
+
+					<div class="col-6 col-lg-6 ">
+						<div  es:classforerror="produtoTamanhos">
+							<!--  <button type="button" class="btn btn-primary js-novo-tamanho">Novo
+							//tamanho</button>-->
+							<label for="tamanhos" class="control-label">Tamanhos</label> <select
+								id="tamanhos" class="selectpicker js-tamanhos"
+								title="Selecione os tamanhos" multiple>
+								<option th:each="tamanho : ${tamanhos}" th:value="${tamanho.id}"
+									th:text="${tamanho.descricao}"
+									th:selected="${#lists.contains(produto.tamanhosCadastrados, tamanho)} ? selected">PP</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="container-tamanhos-produto">
+					<th:block th:fragment="tamanhos-usados-lista"
+						th:each="produtoTamanho, ptStat : ${produto.produtoTamanhos}">
+						<div class="row js-tamanho-produto">
+							<input type="hidden"
+								th:field="${produto.produtoTamanhos[__${ptStat.index}__]}">
+							<div class="col-6 col-lg-6">
+								<div class="form-group" >
+									<label for="tamanho" class="control-label">Tamanho</label> <select
+										class="form-control js-select-tamanho-produto"
+										name="tamanhoProduto" readonly="readonly"
+										th:field="${produto.produtoTamanhos[__${ptStat.index}__].tamanho}">
+										<option
+											th:value="${produto.produtoTamanhos[__${ptStat.index}__].tamanho.id}"
+											th:text="${produto.produtoTamanhos[__${ptStat.index}__].tamanho.descricao}"></option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-6 col-lg-6">
+								<div class="form-group">
+									<label for="quantidade" class="control-label">Quantidade</label>
+									<input type="number" class="form-control js-quantidade-tamanho"
+										name="quantidadeProduto" min="1" max="1000"
+										th:field="${produto.produtoTamanhos[__${ptStat.index}__].quantidade}" />
+								</div>
+							</div>
+						</div>
+					</th:block>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-sm-12">
+
+
+						<fieldset id="grupos-foto" th:fragment="gruposFoto">
+							<th:block th:each="foto, stat : ${produto.foto}">
+								<div class="group-foto" data:index="${stat.index}"
+									data:disponivel="${foto == null}">
+									<input class="js-nome-foto" type="hidden"
+										th:field="${produto.foto[__${stat.index}__]}"> <input
+										class="js-url-foto" type="hidden"
+										th:field=${produto.urlFoto[__${stat.index}__]}> <input
+										class="js-content-type-foto" type="hidden"
+										th:field=${produto.contentType[__${stat.index}__]}>
+								</div>
+							</th:block>
+						</fieldset>
+						<div class="container-fotos" es:classforerror="foto">
+							<div style="display: flex; justify-content: space-between;">
+								<label class="control-label " for="foto">Fotos</label> <label>Fotos
+									disponíveis: <span class="js-qtd-fotos">0</span>
+								</label>
+							</div>
+							<div id="upload-drop" class="bw-upload">
+								<i class="glyphicon glyphicon-cloud-upload"></i> <span>Arraste
+									a foto aqui ou</span> <a class="bw-upload-form-file link">selecione
+									<input id="upload-select" type="file" accept=".jpg,.png,.jpeg" />
+								</a>
+							</div>
+						</div>
+
+
+						<div class="js-container-foto-produto mt-3"
+							th:attr="data-url-foto=@{/fotos}">
+							<div class="row linha-foto-produto"></div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-sm-12 text-center" style="padding: 10px 0;">
+						<button type="submit" class="btn btn-primary"
+							style="border: 1px solid rgba(0, 0, 0, .15);">[[${produto.novo
+							? 'Cadastrar' : 'Atualizar'}]] produto</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<input type="hidden" id="urlProdutos" th:value="@{/api/produtos}">
+		<th:block th:replace="hbs/FotoProduto"></th:block>
+		<th:block th:replace="hbs/TamanhoProduto :: script-tamanho-produto"></th:block>
+	</main>
+
+	<th:block layout:fragment="javascript-extras">
+		<script type="text/javascript"
+			th:src="@{/javascripts/vendors/bootstrap-select.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/layout/vendors/sweetalert/sweetalert2.all.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/javascripts/vendors/upload.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/javascripts/produto.upload-foto.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/javascripts/produto.cadastro-tamanho.js}"></script>
+
+	</th:block>
+
+</body>
+
+
+
+</html>

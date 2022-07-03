@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+
+<link rel="stylesheet" type="text/css">
+<meta charset="UTF-8">
+
+<style>
+	.principal {
+		min-height: 0;
+	}
+
+</style>
+
+</head>
+
+<body class="animsition">
+
+	<main layout:fragment="conteudo">
+
+
+		<section class="mt-5 mb-5" style="text-align:center;">
+			<div class="container pt-5">
+				<div class="container-venda-realizada">
+					<h1>Venda de nº [[${idVenda}]] realizada com sucesso!</h1>
+					
+					<a th:href="@{/perfil/pedidos}" class="bg1 bo-rad-23 hov1 s-text1 trans-0-4 mt-5"
+								type="submit" style="color: white; padding: 10px;">Meus pedidos</a>
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<th:block layout:fragment="javascript-extras">
+	</th:block>
+
+</body>
+
+
+
+</html>

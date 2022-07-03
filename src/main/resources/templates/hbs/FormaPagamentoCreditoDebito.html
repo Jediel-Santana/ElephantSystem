@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<script id="forma-pagamento-credito-debito"
+	type="text/x-handlebars-template"
+	th:fragment="script-forma-pagamento-credito-debito">
+	<div class="form-group">
+		<label class="ES-label">Número cartão</label>
+
+
+		<div class="size13 bo4 m-b-22 input-group">
+			<input class="sizefull s-text7 p-l-15 p-r-15 form-control"
+				type="text" name="postcode" placeholder="Somente digitos"
+				autocomplete="disabled">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="ES-label">Nome do titular</label>
+
+
+		<div class="size13 bo4 m-b-22 input-group">
+			<input class="sizefull s-text7 p-l-15 p-r-15 form-control"
+				type="text" name="postcode" placeholder="Severino silva">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="ES-label">Código de segurança</label>
+
+
+		<div class="size13 bo4 m-b-22 input-group">
+			<input class="sizefull s-text7 p-l-15 p-r-15 form-control"
+				type="text" name="postcode" placeholder="000">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="ES-label">Vencimento</label>
+
+
+		<div class="size13 bo4 m-b-22 input-group">
+			<input class="sizefull s-text7 p-l-15 p-r-15 form-control"
+				type="text" name="postcode" placeholder="00/0000">
+		</div>
+	</div>
+</script>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+</head>
+
+<script id="tamanho-produto"
+	type="text/x-handlebars-template"
+	th:fragment="script-tamanho-produto">
+	<div class="row js-tamanho-produto">
+			<div class="col-md-12 col-lg-5">
+				<div class="form-group">
+					<label for="tamanho" class="control-label">Tamanho</label> 
+								<select
+								class="form-control js-select-tamanho-produto" name="tamanhoProduto">
+									<option value="0">Selecione o tamanho</option>	
+										{{#each tamanhos}}							
+											<option value="{{id}}">Tamanho {{descricao}}</option>	
+										{{/each}}
+							</select>
+							</div>
+						</div>
+
+					<div class="col-md-12 col-lg-5">
+							<div class="form-group">
+							<label for="quantidade" class="control-label">Quantidade</label>
+							<input type="number" class="form-control" name="quantidadeProduto" min="1" max="1000" />
+						</div>
+					</div>
+
+					<div
+						class="col-2 col-lg-2 offset-lg-2 d-flex justify-content-center align-items-center">
+						<button type="button" class="btn btn-danger" disabled>X</button>
+					</div>
+
+			</div>
+</script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+		xmlns:data="http://www.thymeleaf.org/extras/data">
+
+<section class="newproduct bgwhite p-t-45 p-b-105">
+	<div class="container">
+		<div class="sec-title p-b-60">
+			<h3 class="m-text5 t-center">recentes</h3>
+		</div>
+
+		<!-- Slide2 -->
+		<div class="wrap-slick2">
+			<div class="slick2">
+
+				<th:block th:each="produto,produtoStat : ${produtosRecentes}" th:unless="${produtoStat.index > 8}">
+					<div class="item-slick2 p-l-15 p-r-15">
+						<!-- Block2 -->
+						<th:block th:replace="produto/item :: produto"></th:block>
+					</div>
+				</th:block>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+</html>

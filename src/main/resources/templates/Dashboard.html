@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+<link rel="stylesheet" type="text/css">
+<meta charset="UTF-8">
+
+<!-- 
+<link rel="stylesheet" th:href="@{/layout/stylesheet/app-style.css}">
+ -->
+
+<style>
+	
+	@media(min-width: 772px){
+		.venda-mes{
+			height: 580px;
+		}
+	
+	}
+	
+</style>
+
+</head>
+
+
+<body class="animsition es-backgroud-gradient-red-white">
+
+	<main layout:fragment="conteudo" class="main-mg-top">
+
+		<section class="pt-3">
+			<div class="container">
+				<div class="card">
+					<div class="card-content">
+						<div class="row row-group m-0">
+							<div class="col-12 col-lg-6 col-xl-3 border-light">
+								<div class="card-body">
+									<h5 class="text-white mb-0">
+										[[${totalPedidos}]] <span class="float-right"><i
+											class="fa fa-shopping-cart"></i></span>
+									</h5>
+									<div class="progress my-3" style="height: 3px;">
+										<div class="progress-bar" style="width: 55%"></div>
+									</div>
+									<p class="mb-0 text-white small-font">
+										Total pedidos <span class="float-right">+4.2% <i
+											class="zmdi zmdi-long-arrow-up"></i></span>
+									</p>
+								</div>
+							</div>
+							<div class="col-12 col-lg-6 col-xl-3 border-light">
+								<div class="card-body">
+									<h5 class="text-white mb-0">
+										R$ [[${ticketMedio}]] <span class="float-right"><i
+											class="fa fa-usd"></i></span>
+									</h5>
+									<div class="progress my-3" style="height: 3px;">
+										<div class="progress-bar" style="width: 52%"></div>
+									</div>
+									<p class="mb-0 text-white small-font">
+										Ticket médio <span class="float-right">+1.2% <i
+											class="zmdi zmdi-long-arrow-up"></i></span>
+									</p>
+								</div>
+							</div>
+							<div class="col-12 col-lg-6 col-xl-3 border-light">
+								<div class="card-body">
+									<h5 class="text-white mb-0">
+										[[${valorItensEstoque.totalItens}]] <span class="float-right"><i
+											class="fa fa-truck"></i></span>
+									</h5>
+									<div class="progress my-3" style="height: 3px;">
+										<div class="progress-bar" style="width: 30%"></div>
+									</div>
+									<p class="mb-0 text-white small-font">
+										Total estoque <span class="float-right">+5.2% <i
+											class="zmdi zmdi-long-arrow-up"></i></span>
+									</p>
+								</div>
+							</div>
+							<div class="col-12 col-lg-6 col-xl-3 border-light">
+								<div class="card-body">
+									<h5 class="text-white mb-0">
+										R$ [[${{valorItensEstoque.valor}}]]<span class="float-right"><i
+											class="fa fa-usd"></i></span>
+									</h5>
+									<div class="progress my-3" style="height: 3px;">
+										<div class="progress-bar" style="width: 10%"></div>
+									</div>
+									<p class="mb-0 text-white small-font">Valor estoque</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row justify-content-center">
+					<div class="col-12 col-lg-10">
+						<div class="card mais-vendidos">
+							<div class="card-header">
+								Produtos mais vendidos
+								<div class="card-action">
+									<div class="dropdown">
+										<a href="javascript:void();"
+											class="dropdown-toggle dropdown-toggle-nocaret"
+											data-toggle="dropdown"> <i class="icon-options"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item" href="javascript:void();">Action</a>
+											<a class="dropdown-item" href="javascript:void();">Another
+												action</a> <a class="dropdown-item" href="javascript:void();">Something
+												else here</a>
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item" href="javascript:void();">Separated
+												link</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="table-responsive">
+								<table
+									class="table align-items-center table-flush table-borderless">
+									<thead>
+										<tr>
+											<th>Produto</th>
+											<th style="padding-right: 1rem;">Total</th>
+										</tr>
+									</thead>
+									<tbody>
+
+										<th:block th:each="produto, pStat : ${produtosMaisVendidos}">
+											<tr>
+												<td>[[${produto.descricao}]]</td>
+												<td>[[${produto.total}]]</td>
+											</tr>
+										</th:block>
+
+										<tr th:if="${#lists.isEmpty(produtosMaisVendidos)}">
+											<td colspan="4">Nenhuma produto mais vendido</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-12 col-lg-8 col-xl-8">
+						<div class="card card-grafico-venda-mes">
+							<div class="card-header">
+								Vendas por mês
+								<div class="card-action">
+									<div class="dropdown">
+										<a href="javascript:void();"
+											class="dropdown-toggle dropdown-toggle-nocaret"
+											data-toggle="dropdown"> <i class="icon-options"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item" href="javascript:void();">Action</a>
+											<a class="dropdown-item" href="javascript:void();">Another
+												action</a> <a class="dropdown-item" href="javascript:void();">Something
+												else here</a>
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item" href="javascript:void();">Separated
+												link</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="chart-container-1 venda-mes">
+									<canvas id="vendaNoMes"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-12 col-lg-4 col-xl-4">
+						<div class="card">
+							<div class="card-header">
+								Vendas por categoria
+								<div class="card-action">
+									<div class="dropdown">
+										<a href="javascript:void();"
+											class="dropdown-toggle dropdown-toggle-nocaret"
+											data-toggle="dropdown"> <i class="icon-options"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item" href="javascript:void();">Action</a>
+											<a class="dropdown-item" href="javascript:void();">Another
+												action</a> <a class="dropdown-item" href="javascript:void();">Something
+												else here</a>
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item" href="javascript:void();">Separated
+												link</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="chart-container-2">
+									<canvas id="vendasPorCategoria"></canvas>
+								</div>
+							</div>
+							<div class="table-responsive">
+								<table class="table align-items-center">
+									<tbody>
+
+										<th:block th:each="venda : ${vendasPorCategoria}">
+											<tr>
+												<td><i class="fa fa-circle text-white mr-2"></i>
+													[[${venda.categoria}]]</td>
+												<td>R$[[${{venda.total}}]]</td>
+
+												<!-- <td>+55%</td> -->
+											</tr>
+										</th:block>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</section>
+	</main>
+
+	<th:block layout:fragment="javascript-extras">
+
+		<script th:src="@{/javascripts/vendors/Chart.min.js}"></script>
+		<script th:src="@{/javascripts/dashboard.graficos.js}"></script>
+	</th:block>
+
+</body>
+
+
+
+</html>

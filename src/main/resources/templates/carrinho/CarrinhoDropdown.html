@@ -1,0 +1,33 @@
+
+<script id="carrinho-dropdown"  type="text/x-handlebars-template">
+
+	<ul class="header-cart-wrapitem">
+		
+		{{#if .}}
+		
+			{{#each .}}
+			<li class="header-cart-item">
+				<div class="header-cart-item-img js-remove-item-cart" data-id-produto="{{idProduto}}" data-id-tamanho="{{tamanho.id}}">
+					<img src="{{fotoThumbnail}}" alt="IMG">
+				</div>
+	
+				<div class="header-cart-item-txt">
+					<a href="{{urlDoProduto}}" class="header-cart-item-name"> {{descricaoProduto}} </a> <span class="header-cart-item-info">{{quantidade}} x
+						R${{precoUnitario}} Tamanho {{tamanho.descricao}}</span>
+				</div>
+			</li>
+			{{/each}}
+			{{else}}
+					<span>Nenhum item.</span>
+			{{/if}}
+			
+	</ul>
+
+
+	<div class="header-cart-total">Total: R${{total}}</div>
+	<a href="{{urlCarrinho}}"
+		class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4"> Ver
+		carrinho </a>
+	<input type="hidden" id="urlCarrinho" th:value="@{/api/public/carrinho}">
+</script>
+

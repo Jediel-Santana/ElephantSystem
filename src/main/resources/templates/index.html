@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+
+	<link rel="stylesheet"
+		type="text/css">
+</head>
+
+
+<body class="animsition">
+	<main layout:fragment="conteudo">
+		
+		<section th:replace="layout/fragments/banner :: banner"></section>
+		
+		<section th:replace="produto/Itens"></section>
+		
+		<section th:replace="layout/fragments/banner-video :: banner-video"></section>
+		
+		<section th:replace="layout/fragments/instagram :: instagram"></section>
+		
+	</main>
+
+<th:block layout:fragment="javascript-extras">
+	<script th:src="@{/javascripts/produto.add-carrinho.js}"></script>
+</th:block>
+
+</body>
+	
+
+</html>

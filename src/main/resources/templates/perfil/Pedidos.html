@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+
+<link rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/stylesheets/vendors/bootstrap-select.min.css}">
+<link rel="stylesheet" th:href="@{/stylesheets/modal-detalhe-venda.css}">
+</head>
+
+
+<body class="animsition es-backgroud-gradient-red-white">
+
+	<main layout:fragment="conteudo" class="main-mg-top">
+		<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m"
+			style="background-image: url(/layout/images/banner-cart.jpg);">
+			<h2 class="l-text2 t-center">Pedidos</h2>
+		</section>
+			
+		<th:block th:replace="hbs/TabelaVendas :: tabela-vendas"></th:block>
+
+		
+	</main>
+
+	<th:block layout:fragment="javascript-extras">
+		<script th:src="@{/javascripts/vendors/bootstrap-select.min.js}"></script>
+	</th:block>
+
+</body>
+
+
+
+</html>

@@ -1,0 +1,14 @@
+<html xmlns="http://www." xmlns:th="http://www.thymeleaf.org">
+
+
+<th:block th:fragment="pagination(pagina)">
+	
+
+	<div class="pagination flex-m flex-w p-t-13 p-b-15 justify-content-center" th:if="${not pagina.vazia}">
+			<th:block th:each="p : ${#numbers.sequence(1, pagina.total)}" th:with="numeroPagina=${p - 1}">
+				<a class="item-pagination flex-c-m trans-0-4 text-dark" th:href="${pagina.urlParaPagina(numeroPagina)}" th:classappend="${numeroPagina == pagina.atual} ? active-pagination">[[${p}]]</a>
+			</th:block>
+	</div>
+</th:block>
+
+</html>

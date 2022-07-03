@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<link th:href="@{/layout/vendors/pace/pace.min.css}" rel="stylesheet" />
+<script th:src="@{/layout/vendors/pace/pace.min.js}"></script>
+<!--favicon-->
+
+<!-- Bootstrap core CSS-->
+<link th:href="@{/layout/vendors/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<!-- animate CSS-->
+<link th:href="@{/layout/stylesheet/vendors/animate.css}"
+	rel="stylesheet" type="text/css" />
+<!-- Icons CSS-->
+<link th:href="@{/layout/stylesheet/vendors/icons.css}" rel="stylesheet"
+	type="text/css" />
+<!-- Custom Style-->
+<link th:href="@{/layout/stylesheet/app-style.css}" rel="stylesheet" />
+</head>
+
+
+<body class="animsition"
+	style="background: rgb(234, 84, 85); background: linear-gradient(90deg, rgba(234, 84, 85, 1) 41%, rgba(254, 182, 146, 1) 91%);">
+
+	<main layout:fragment="conteudo">
+
+		<div id="wrapper">
+
+			<div
+				class="height-100v d-flex align-items-center justify-content-center">
+				<div class="card card-authentication1 mb-0">
+					<div class="card-body">
+						<div class="card-content p-2">
+							<div class="card-title text-uppercase pb-2">Resetar Senha</div>
+							<p class="pb-2" style="color: white;">Por favor, insira seu email. Você irá receber um link pra criar uma nova senha.</p>
+							<form>
+								<div class="form-group">
+									<label for="exampleInputEmailAddress" class="">Email</label>
+									<div class="position-relative has-icon-right">
+										<input type="text" id="exampleInputEmailAddress"
+											class="form-control input-shadow" placeholder="seuemail@dominio.com">
+										<div class="form-control-position">
+											<i class="icon-envelope-open"></i>
+										</div>
+									</div>
+								</div>
+
+								<button type="button" class="btn btn-light btn-block mt-3">Resetar senha</button>
+							</form>
+						</div>
+					</div>
+					<div class="card-footer text-center py-3">
+						<p class="text-warning mb-0">
+							Retornar ao<a th:href="@{/login}"> login</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<th:block layout:fragment="javascript-extras">
+		<script th:src="@{/layout/vendors/jquery/jquery-3.2.1.min.js}"></script>
+		<script th:src="@{/layout/vendors/bootstrap/js/popper.min.js}"></script>
+		<script th:src="@{/layout/vendors/bootstrap/js/bootstrap.min.js}"></script>
+
+		<script th:src="@{/layout/javascript/sidebar-menu.js}"></script>
+
+		<!-- Custom scripts -->
+		<script th:src="@{/layout/javascript/app-script.js}"></script>
+	</th:block>
+
+</body>
+
+
+
+</html>

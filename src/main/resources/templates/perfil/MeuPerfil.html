@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	xmlns:es="http://www.elephantsystem.edu"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+
+<link rel="stylesheet" type="text/css">
+
+
+<style>
+
+</style>
+
+</head>
+
+
+<body class="animsition es-backgroud-gradient-red-white">
+
+	<main layout:fragment="conteudo" class="main-mg-top">
+
+		<div class="container">
+
+
+			<section id="perfil-info" class="d-flex justify-content-center pt-5">
+
+
+				<form class="form-perfil-info" th:object="${usuario}">
+				<es:message />
+					<div class="row">
+						<div class="form-group col-12 col-md-6">
+							<label class="control-label">Nome</label> <input type="text"
+								class="form-control" th:field="*{pessoa.nome}">
+						</div>
+						<div class="form-group col-12 col-md-6">
+							<label class="control-label">Data nascimento</label> <input
+								type="date" class="form-control data-nascimento"
+								th:field="*{pessoa.dataNascimento}">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-12 col-md-6">
+							<label class="control-label">CPF</label> <input type="text"
+								class="form-control" readonly="readonly"
+								th:field="*{pessoa.cpf}">
+						</div>
+
+						<div class="form-group col-12 col-md-6">
+							<label class="control-label">EMAIL</label> <input type="text"
+								class="form-control" readonly="readonly" th:field="*{email}">
+						</div>
+					</div>
+
+					<div class="col-12 d-flex justify-content-center py-3">
+						<button class=" bg1 bo-rad-23 hov1 s-text1 trans-0-4"
+							style="padding: 10px" type="submit" disabled>Atualizar</button>
+					</div>
+				</form>
+
+			</section>
+
+
+
+		</div>
+		
+	</main>
+
+	<th:block layout:fragment="javascript-extras">
+
+	</th:block>
+	
+	<script>
+			var data = $('.data-nascimento').val();
+			console.log($('.data-nascimento').val);
+			console.log(data);
+			var dataIso = new Date(data);
+			console.log(dataIso.toISOString());
+			console.log('<---');
+		</script>
+
+</body>
+
+
+
+</html>

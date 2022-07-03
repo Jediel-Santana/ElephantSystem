@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+<link rel="stylesheet" type="text/css">
+<meta charset="UTF-8">
+
+</head>
+
+
+<body class="animsition">
+
+	<main layout:fragment="conteudo" style="background-color: #42a7f5;">
+
+		<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m"
+			style="background-image: url(/layout/images/banner-contato-opcao.jpg);">
+			<h2 class="l-text2 t-center">Sobre nós</h2>
+		</section>
+
+		<!-- content page -->
+		<section class="bgwhite p-t-66 p-b-38">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 p-b-30">
+						<div class="hov-img-zoom">
+							<!-- 
+							<img src="images/banner-14.jpg" alt="IMG-ABOUT">
+							 -->
+						</div>
+					</div>
+
+					<div class="col-md-8 p-b-30">
+						<h3 class="m-text26 p-t-15 p-b-16">Nossa história</h3>
+
+						<p class="p-b-28">Somos uma loja online que oferece o melhor
+							para os nossos clientes, onde podemos atender todas as
+							expectativas sobre a moda feminina e masculina sempre de olho nas tendências
+							e lançamentos. Nossa loja oferece o que há de mais moderno e
+							atual em todas as categorias de produtos. Desde o princípio,
+							nossa preocupação é oferecer os melhores produtos com os melhores
+							preços aliado a um ótimo atendimento a você cliente, que é a
+							pessoa mais importante para nós.</p>
+
+						<div class="bo13 p-l-29 m-l-9 p-b-10">
+							<p class="p-b-11">A única maneira de fazer algo excelente é amar o que você faz. Se você ainda não a encontrou, continue procurando. Não se acomode..</p>
+
+							<span class="s-text7"> - Steve Job’s </span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<th:block layout:fragment="javascript-extras">
+
+	</th:block>
+
+</body>
+
+
+
+</html>
